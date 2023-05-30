@@ -47,5 +47,24 @@ router.get('/current/:city?', async (req, res) => {
   }
 });
 
+router.get('/forecast/:city?', async (req, res) => {
+  const { city } = req.params;
+  var ip = requestIp.getClientIp(req);
+  if (ip === "::ffff:127.0.0.1" || ip === "::1" || ip === null) {
+    const response = await axios.get('https://api.ipify.org?format=json');
+    ip = response ? response.data.ip : "";
+  }
+  try{
+    var location = city ? await locationController.getLocationByCity(city) : await locationController.getLocation(ip || "");
+    if(location){
+      const forecast = await weatherController.getForecastWeatherByCity(location.city, location.countryCode);
+      res.json({location, forecast})
+    }else{
+    }
+  }catch(error){
+    res.status(400).json({message:'Error retrieving location data'})
+  }
+});
+
 
 export default router;

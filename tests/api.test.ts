@@ -52,4 +52,27 @@ describe('API', () => {
       expect(response.body).toHaveProperty('weather');
     });
   });
+
+  describe('GET /forecast', () => {
+    test('should return the forecast weather by location', async () => {
+      const response = await request(app).get('/forecast');
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('location');
+      expect(response.body).toHaveProperty('forecast');
+    });
+    test('should return the weather by location', async () => {
+      const wrongCity = "wrongCityName"
+      const expectedMessage = "Error retrieving location data"
+      const response = await request(app).get(`/forecast/${wrongCity}`);
+      expect(response.status).toBe(400);
+      expect(response.text).toBe(JSON.stringify({ message: expectedMessage }));
+    });
+    test('should return the weather by location', async () => {
+      const city = "Buenos_Aires"
+      const response = await request(app).get(`/forecast/${city}`);
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('location');
+      expect(response.body).toHaveProperty('forecast');
+    });
+  });
 });

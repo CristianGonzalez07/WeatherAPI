@@ -41,4 +41,24 @@ export class WeatherRepository {
       throw new Error('Error retrieving weather data');
     }
   }
+
+  async getForecastWeatherByCity(city: string, countryCode: string): Promise<Array<Weather>> {
+    try {
+      const response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city},${countryCode}&appid=${process.env.OPEN_WEATHER_API_KEY}&units=metric&cnt=5`);
+      if (response.status === 200) {
+        const data = response.data.list;
+        const weatherArray: Array<Weather> = [];
+        data.forEach((element: WeatherData) => {
+          const weather = new Weather(element.weather, element.main, element.visibility, element.wind);
+          weatherArray.push(weather);
+        });
+        return weatherArray;
+      } else {
+        throw new Error('Failed to retrieve weather data');
+      }
+    } catch (error) {
+      throw new Error('Error retrieving weather data');
+    }
+  }
+  
 }
