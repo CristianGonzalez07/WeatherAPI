@@ -3,15 +3,14 @@ import swaggerUi from 'swagger-ui-express';
 import * as fs from 'fs';
 import * as path from 'path';
 import dotenv from 'dotenv';
+import apiRouter from './interfaces/http/routes';
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
-app.use('/v1', async (_req, res) => {
-  return res.json({"message": `Welcome to the Weather API! You can read the documentation at http://localhost:${port}/docs`});
-});
+app.use('/', apiRouter);
 
 //swagger configs
 const swaggerFilePath = path.join(__dirname, './swagger.json');
