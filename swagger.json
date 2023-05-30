@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Weather API - OpenAPI 3.0",
-    "description": "This is a sample Weather API Server based on the OpenAPI 3.0 specification.  You can find out more about\n Swagger at [https://swagger.io](https://swagger.io).\n\n Some useful links:\n - [The Weather API repository](https://github.com/migithub)\n - [The source API definition for the Weather API](https://github.com/github-path-to-swagger.json)",
+    "description": "This is a sample Weather API Server based on the OpenAPI 3.0 specification. You can find out more about\nSwagger at [https://swagger.io](https://swagger.io).\n\nSome useful links:\n- [The Weather API repository](https://github.com/CristianGonzalez07/WeatherAPI)\n- [The source API definition for the Weather API](https://github.com/CristianGonzalez07/WeatherAPI/blob/master/swagger.json)",
     "termsOfService": "http://swagger.io/terms/",
     "contact": {
       "email": "cristian.gonzalez.dev.01@gmail.com"
@@ -20,7 +20,7 @@
         "description": "This is the main entry point for the API.",
         "responses": {
           "200": {
-            "description": "successful response",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
@@ -29,6 +29,535 @@
                     "message": {
                       "type": "string",
                       "example": "Welcome to the Weather API!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/location": {
+      "get": {
+        "tags": [
+          "location"
+        ],
+        "summary": "Retrieves the location based on the client's IP address.",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "city": {
+                      "type": "string"
+                    },
+                    "region": {
+                      "type": "string"
+                    },
+                    "regionName": {
+                      "type": "string"
+                    },
+                    "country": {
+                      "type": "string"
+                    },
+                    "countryCode": {
+                      "type": "string"
+                    },
+                    "zip": {
+                      "type": "string"
+                    },
+                    "lat": {
+                      "type": "number"
+                    },
+                    "lon": {
+                      "type": "number"
+                    },
+                    "timezone": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/current": {
+      "get": {
+        "tags": [
+          "current"
+        ],
+        "summary": "Retrieves the current weather for the client's location.",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "location": {
+                      "type": "object",
+                      "properties": {
+                        "city": {
+                          "type": "string"
+                        },
+                        "region": {
+                          "type": "string"
+                        },
+                        "regionName": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "countryCode": {
+                          "type": "string"
+                        },
+                        "zip": {
+                          "type": "string"
+                        },
+                        "lat": {
+                          "type": "number"
+                        },
+                        "lon": {
+                          "type": "number"
+                        },
+                        "timezone": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "weather": {
+                      "type": "object",
+                      "properties": {
+                        "weather": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "main": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "icon": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "main": {
+                          "type": "object",
+                          "properties": {
+                            "temp": {
+                              "type": "number"
+                            },
+                            "feels_like": {
+                              "type": "number"
+                            },
+                            "temp_min": {
+                              "type": "number"
+                            },
+                            "temp_max": {
+                              "type": "number"
+                            },
+                            "pressure": {
+                              "type": "integer"
+                            },
+                            "humidity": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "visibility": {
+                          "type": "integer"
+                        },
+                        "wind": {
+                          "type": "object",
+                          "properties": {
+                            "speed": {
+                              "type": "number"
+                            },
+                            "deg": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/current/{city}": {
+      "get": {
+        "tags": [
+          "current"
+        ],
+        "summary": "Retrieves the current weather for a specific city.",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "path",
+            "description": "The name of the city.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "location": {
+                      "type": "object",
+                      "properties": {
+                        "city": {
+                          "type": "string"
+                        },
+                        "region": {
+                          "type": "string"
+                        },
+                        "regionName": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "countryCode": {
+                          "type": "string"
+                        },
+                        "zip": {
+                          "type": "string"
+                        },
+                        "lat": {
+                          "type": "number"
+                        },
+                        "lon": {
+                          "type": "number"
+                        },
+                        "timezone": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "weather": {
+                      "type": "object",
+                      "properties": {
+                        "weather": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "main": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "icon": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "main": {
+                          "type": "object",
+                          "properties": {
+                            "temp": {
+                              "type": "number"
+                            },
+                            "feels_like": {
+                              "type": "number"
+                            },
+                            "temp_min": {
+                              "type": "number"
+                            },
+                            "temp_max": {
+                              "type": "number"
+                            },
+                            "pressure": {
+                              "type": "integer"
+                            },
+                            "humidity": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "visibility": {
+                          "type": "integer"
+                        },
+                        "wind": {
+                          "type": "object",
+                          "properties": {
+                            "speed": {
+                              "type": "number"
+                            },
+                            "deg": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forecast": {
+      "get": {
+        "tags": [
+          "forecast"
+        ],
+        "summary": "Retrieves the forecast for the client's location.",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "location": {
+                      "type": "object",
+                      "properties": {
+                        "city": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "countryCode": {
+                          "type": "string"
+                        },
+                        "zip": {
+                          "type": "string"
+                        },
+                        "lat": {
+                          "type": "number"
+                        },
+                        "lon": {
+                          "type": "number"
+                        },
+                        "timezone": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "forecast": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "weather": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "main": {
+                                  "type": "string"
+                                },
+                                "description": {
+                                  "type": "string"
+                                },
+                                "icon": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "main": {
+                            "type": "object",
+                            "properties": {
+                              "temp": {
+                                "type": "number"
+                              },
+                              "feels_like": {
+                                "type": "number"
+                              },
+                              "temp_min": {
+                                "type": "number"
+                              },
+                              "temp_max": {
+                                "type": "number"
+                              },
+                              "pressure": {
+                                "type": "integer"
+                              },
+                              "humidity": {
+                                "type": "integer"
+                              }
+                            }
+                          },
+                          "visibility": {
+                            "type": "integer"
+                          },
+                          "wind": {
+                            "type": "object",
+                            "properties": {
+                              "speed": {
+                                "type": "number"
+                              },
+                              "deg": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forecast/{city}": {
+      "get": {
+        "tags": [
+          "forecast"
+        ],
+        "summary": "Retrieves the forecast for a specific city.",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "path",
+            "description": "The name of the city.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "location": {
+                      "type": "object",
+                      "properties": {
+                        "city": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "countryCode": {
+                          "type": "string"
+                        },
+                        "zip": {
+                          "type": "string"
+                        },
+                        "lat": {
+                          "type": "number"
+                        },
+                        "lon": {
+                          "type": "number"
+                        },
+                        "timezone": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "forecast": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "weather": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "main": {
+                                  "type": "string"
+                                },
+                                "description": {
+                                  "type": "string"
+                                },
+                                "icon": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "main": {
+                            "type": "object",
+                            "properties": {
+                              "temp": {
+                                "type": "number"
+                              },
+                              "feels_like": {
+                                "type": "number"
+                              },
+                              "temp_min": {
+                                "type": "number"
+                              },
+                              "temp_max": {
+                                "type": "number"
+                              },
+                              "pressure": {
+                                "type": "integer"
+                              },
+                              "humidity": {
+                                "type": "integer"
+                              }
+                            }
+                          },
+                          "visibility": {
+                            "type": "integer"
+                          },
+                          "wind": {
+                            "type": "object",
+                            "properties": {
+                              "speed": {
+                                "type": "number"
+                              },
+                              "deg": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
