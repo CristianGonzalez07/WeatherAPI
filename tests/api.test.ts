@@ -29,4 +29,27 @@ describe('API', () => {
       expect(response.body).toHaveProperty('timezone');
     });
   });
+
+  describe('GET /current', () => {
+    test('should return the weather by location', async () => {
+      const response = await request(app).get('/current');
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('location');
+      expect(response.body).toHaveProperty('weather');
+    });
+    test('should return the weather by location', async () => {
+      const wrongCity = "wrongCityName"
+      const expectedMessage = "Error retrieving location data"
+      const response = await request(app).get(`/current/${wrongCity}`);
+      expect(response.status).toBe(400);
+      expect(response.text).toBe(JSON.stringify({ message: expectedMessage }));
+    });
+    test('should return the weather by location', async () => {
+      const city = "Buenos_Aires"
+      const response = await request(app).get(`/current/${city}`);
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('location');
+      expect(response.body).toHaveProperty('weather');
+    });
+  });
 });
